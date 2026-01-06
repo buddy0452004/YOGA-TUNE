@@ -1,0 +1,24 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="container">
+    <div class="section">
+        <h2 style="color: #ff6f61;">📝 Final Certification Exam (10 Questions)</h2>
+        <p>You need a minimum of 6 correct answers (60%) to pass and generate your certificate.</p>
+        
+        <form method="POST" action="{{ url_for('submit_final_test') }}">
+            {% for q in questions %}
+            <div class="question" style="margin-bottom: 25px;">
+                <p><strong>{{ q.id }}. {{ q.q }}</strong></p>
+                {% for key, value in q.options.items() %}
+                    <input type="radio" id="q{{ q.id }}{{ key }}" name="q{{ q.id }}" value="{{ key }}" required> 
+                    <label for="q{{ q.id }}{{ key }}">{{ value }}</label><br>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="cert-btn">Submit and Get Results</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

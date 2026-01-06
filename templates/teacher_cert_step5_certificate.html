@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="container" style="padding: 50px;">
+    <div class="section" style="border: 5px double #1ca6a6; padding: 40px; text-align: center; background-color: #ffffff;">
+        <h1 style="color: #1ca6a6; font-size: 2.5em; border-bottom: 3px solid #ff6f61; padding-bottom: 10px; margin-bottom: 30px;">
+            YogaTune Teacher Certification
+        </h1>
+        <p style="font-size: 1.2em; color: #555;">Proudly presented to</p>
+        
+        <h2 style="color: #ff6f61; font-size: 3em; margin: 15px 0;">{{ username | upper }}</h2>
+        
+        <p style="font-size: 1.2em; color: #555;">For successfully completing the core curriculum and passing the final assessment with a score of {{ score }}/10.</p>
+        
+        <h3 style="color: #2d7f7f; margin-top: 30px; margin-bottom: 30px;">Certified YogaTune Sequence Instructor</h3>
+        
+        <div style="display: flex; justify-content: space-around; font-size: 0.9em; color: #777;">
+            <div>
+                <p>ISSUED ON</p>
+                <p><strong>{{ date }}</strong></p>
+            </div>
+            <div>
+                <p>PROGRAM DIRECTOR</p>
+                <p><strong>Dr. Anya Sharma</strong></p>
+            </div>
+        </div>
+
+        <img src="{{ url_for('static', filename='images/certificate_badge.png') }}" alt="Certification Badge" style="width: 150px; margin-top: 40px;">
+    </div>
+</div>
+{% endblock %}

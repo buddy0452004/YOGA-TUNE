@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome to YOGATUNE</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script>
+    setTimeout(function() {
+      window.location.href = "/dashboard";
+    }, 3000);
+  </script>
+  <style>
+    body {
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .centered {
+      text-align: center;
+      animation: zoomIn 1.5s ease-in-out;
+    }
+    .logo {
+      width: 180px;
+      animation: fadeInUp 1.8s ease-in-out;
+    }
+    .fade-in-text {
+      font-size: 28px;
+      color: #2e8b57;
+      margin-top: 10px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="centered">
+    <img src="{{ url_for('static', filename='logo/eb37ca02-459f-49c2-ac4a-038cbec8d6c1.jpg') }}" class="logo" alt="YOGATUNE Logo">
+    <h1 class="fade-in-text">Welcome to YOGATUNE</h1>
+  </div>
+</body>
+</html>

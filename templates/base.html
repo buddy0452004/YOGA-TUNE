@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}YogaTune Certification{% endblock %}</title>
+    
+    <style>
+        /* --- CORE STYLES --- */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdfaf6;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #ffffff;
+            color: #1ca6a6;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1ca6a6;
+        }
+        .logo {
+            width: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .left-header {
+            display: flex;
+            align-items: center;
+        }
+        .left-header h1 {
+            color: #1ca6a6;
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .right-header a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #1ca6a6;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .right-header a:hover {
+            color: #ff6f61;
+        }
+        /* --- MAIN CONTENT LAYOUT --- */
+        .container {
+            padding: 30px;
+            max-width: 1000px; 
+            margin: 0 auto;
+        }
+        .section {
+            background-color: #ffffff;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #d0ecec;
+        }
+        h2 { 
+            color: #1ca6a6; 
+            border-bottom: 2px solid #e0fafa; 
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        /* --- BUTTON/LIST STYLES (Used in Step Templates) --- */
+        .cert-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: background 0.3s;
+            text-align: center;
+            text-decoration: none; /* Crucial for links */
+        }
+        .cert-btn:hover {
+            background: #e65a4c;
+        }
+        .rules-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .rules-list li {
+            background: #f9fdfd;
+            border-left: 4px solid #1ca6a6;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="header">
+        <div class="left-header">
+            <img src="{{ url_for('static', filename='logo/eb37ca02-459f-49c2-ac4a-038cbec8d6c1.jpg') }}" class="logo" alt="YogaTune Logo">
+            <h1>YogaTune</h1>
+        </div>
+        <div class="right-header">
+            {% if session.get('username') %}
+                <p style="margin: 0; display: inline-block; color: #555;">👋 Hello, <strong>{{ session.get('username') }}</strong></p>
+            {% endif %}
+            <a href="{{ url_for('dashboard') }}">📊 Dashboard</a>
+            <a href="{{ url_for('teacher_cert') }}">🎓 Teacher Cert</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('about') }}">About Us</a>
+        </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+</body>
+</html>

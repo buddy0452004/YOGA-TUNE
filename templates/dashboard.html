@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YogaTune Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdfaf6;
+            margin: 0;
+            padding: 0;
+        }
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            color: #1ca6a6;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #1ca6a6;
+        }
+        .logo {
+            width: 80px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .left-header {
+            display: flex;
+            align-items: center;
+        }
+        .left-header h1 {
+            color: #1ca6a6;
+        }
+        .right-header a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: #1ca6a6;
+            font-weight: bold;
+        }
+
+        /* Dashboard container */
+        .dashboard-container {
+            padding: 30px;
+        }
+        .section {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #d0ecec;
+        }
+        h2 { color: #1ca6a6; }
+        h3 { color: #2d7f7f; }
+
+        /* Input Options */
+        .input-options {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .option-card {
+            flex: 1;
+            cursor: pointer;
+            background: #f9fdfd;
+            border: 2px solid #1aa6a0;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .option-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.1);
+        }
+        .option-card img {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+
+        /* Detected Issue */
+        .detected-issue {
+            background: #e6fdfb;
+            border-left: 6px solid #1aa6a0;
+            padding: 15px 20px;
+            border-radius: 10px;
+        }
+        .detected-issue p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0a5957;
+        }
+
+        /* Pose Grid */
+        .pose-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .pose-card {
+            background: #f9fdfd;
+            border: 1px solid #cceeee;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .pose-card:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .pose-card img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .pose-card h4 {
+            color: #1aa6a0;
+            margin-bottom: 5px;
+        }
+        .pose-card p {
+            font-size: 14px;
+            color: #444;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 20px 0;
+            background: #e6fdfb;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #1ca6a6;
+        }
+        .progress-bar {
+            height: 25px;
+            background: #1ca6a6;
+            color: white;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
+        }
+
+        /* Complete Button */
+        .complete-btn {
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: #1ca6a6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .complete-btn:hover {
+            background: #178787;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="left-header">
+            <img src="{{ url_for('static', filename='logo/eb37ca02-459f-49c2-ac4a-038cbec8d6c1.jpg') }}" class="logo" alt="YogaTune Logo">
+            <h1>YogaTune Dashboard</h1>
+        </div>
+        <div class="right-header">
+            <p style="margin: 0;">👋 Hello, <strong>{{ session['email'].split('@')[0].capitalize() }}</strong></p>
+            <a href="{{ url_for('teacher_cert') }}">🧘‍♀️ Yoga Teacher</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            <a href="{{ url_for('about') }}">About Us</a>
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- Input Section -->
+        <div class="section">
+            <h2>Choose Your Input Type</h2>
+            <div class="input-options">
+                <div class="option-card" onclick="selectOption('manual')">
+                    <img src="{{ url_for('static', filename='images/manual.png') }}" alt="Manual Input">
+                    <h3>Manual Input</h3>
+                    <p>Fill in your details directly</p>
+                </div>
+                <div class="option-card" onclick="selectOption('file')">
+                    <img src="{{ url_for('static', filename='images/upload.png') }}" alt="Upload Report">
+                    <h3>Upload Report</h3>
+                    <p>Upload your health report</p>
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" style="margin-top:20px;">
+                <input type="hidden" name="input_type" id="inputType">
+                <div id="manualInput" style="display: none;">
+                    <input type="text" name="manual_issue" placeholder="Enter your health issue...">
+                </div>
+                <div id="fileInput" style="display: none;">
+                    <input type="file" name="report_file" accept=".csv,.txt,.pdf,.docx">
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section">
+            {% if issue %}
+            <div class="section detected-issue">
+                <h2>Detected Issue:</h2>
+                <p>🩺 {{ issue }}</p>
+            </div>
+            {% endif %}
+
+            {% if weekly_plan %}
+            <div class="section">
+                <!-- Cycle Day should be current day (1-6) -->
+                <h2>Your 18-Pose Progression (Day {{ completed_day + 1 }}/{{ total_days }})</h2>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: {{ percent }}%">
+                        Day {{ completed_day }} of 6 Completed ({{ percent }}% progress)
+                    </div>
+                </div>
+
+                {% set current_day_num = completed_day + 1 %}
+                {% for day_name, all_poses in weekly_plan.items() %}
+                    
+                    <!-- Calculate the pose slice for the current day: 3 poses per day -->
+                    {% set start_index = completed_day * 3 %}
+                    {% set end_index = start_index + 3 %}
+                    {% set poses_for_day = all_poses[start_index:end_index] %}
+
+                    <!-- Removed the pose range text (e.g., "Posed 1 to 3") -->
+                    <h3>{{ day_name }} - Day {{ current_day_num }} Poses</h3>
+                    
+                    <div class="pose-section">
+                        {% for pose in poses_for_day %}
+                        <div class="pose-card">
+                            <img src="{{ url_for('static', filename='poses/' ~ pose.image) }}" alt="{{ pose.name }}">
+                            <h4>{{ pose.name }}</h4>
+                            <p>{{ pose.duration }} | {{ pose.sets }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if completed_day < total_days %}
+                        <form method="POST" action="{{ url_for('complete_day') }}">
+                            {% if current_day_num < total_days %}
+                                <button type="submit" class="complete-btn">
+                                    ✅ Complete Day {{ current_day_num }} (Unlock Day {{ current_day_num + 1 }})
+                                </button>
+                            {% else %}
+                                <button type="submit" class="complete-btn">
+                                    ✅ Complete Day {{ current_day_num }} (Final Day!)
+                                </button>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <!-- This block is shown after Day 6 is completed (completed_day = 6) -->
+                        <p style="text-align: center; font-size: 1.2em; color: #1ca6a6; margin-top: 20px;">
+                            🎉 Congratulations! You have completed the entire 18-pose sequence.
+                        </p>
+                        <form method="POST" action="{{ url_for('reset_progress') }}">
+                             <button type="submit" class="complete-btn" style="background: #e74c3c;">🔄 Start New 18-Pose Sequence</button>
+                        </form>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function selectOption(type) {
+            document.getElementById('manualInput').style.display = type === 'manual' ? 'block' : 'none';
+            document.getElementById('fileInput').style.display = type === 'file' ? 'block' : 'none';
+            document.getElementById('inputType').value = type;
+        }
+    </script>
+
+</body>
+</html>

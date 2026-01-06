@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About Us - YOGATUNE</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfaf6;
+      color: #333;
+    }
+
+    .header {
+      background-color: #0aa79d;
+      padding: 25px;
+      text-align: center;
+      color: white;
+    }
+
+    .header img {
+      height: 70px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+
+    .about-container {
+      padding: 30px;
+      max-width: 950px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .member {
+      background-color: #e0f5f2;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-left: 5px solid #138e88;
+      border-radius: 10px;
+    }
+
+    .member h3 {
+      margin: 0 0 10px 0;
+      color: #105e5a;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #666;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="{{ url_for('static', filename='logo/eb37ca02-459f-49c2-ac4a-038cbec8d6c1.jpg') }}" alt="YOGATUNE Logo">
+    <h1>Meet the Team Behind YOGATUNE</h1>
+  </div>
+
+  <div class="about-container">
+    <div class="member">
+      <h3>Rahul Monani (IU2241230260)</h3>
+      <p><strong>Role:</strong> Designed application logic, UI flow, and Flask backend integration.</p>
+      <p><strong>Email:</strong> rahulmonani2004@gmail.com</p>
+    </div>
+
+    <div class="member">
+      <h3>Nitya Shah (IU2241230250)</h3>
+      <p><strong>Role:</strong> Developed machine learning logic and implemented key backend intelligence.</p>
+      <p><strong>Email:</strong> nityashah@gmail.com</p>
+    </div>
+
+    <div class="member">
+      <h3>Aayush Bhut (IU2241230243)</h3>
+      <p><strong>Role:</strong> Focused on handling all CSV file management and structured data inputs.</p>
+      <p><strong>Email:</strong> (N/A)</p>
+    </div>
+
+    <div class="footer">
+      <p>Made with 💚 at <strong>Indus University</strong></p>
+    </div>
+  </div>
+
+</body>
+</html>

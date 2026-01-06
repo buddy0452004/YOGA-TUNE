@@ -1,0 +1,30 @@
+{% extends 'base.html' %} 
+
+{% block title %}Enroll in Teacher Certification{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="section">
+        <h1 style="color: #ff6f61; text-align: center; margin-bottom: 10px;">Become a Certified YogaTune Teacher</h1>
+        <p style="text-align: center; font-size: 1.1em; color: #555;">
+            Master the core fundamentals and learn to guide others through the *YogaTune 18-Pose Sequence*. Enrollment in our program is completely free.
+        </p>
+        <a href="{{ url_for('teacher_course', step=1) }}" class="cert-btn">
+            Free Enroll and Start Theory
+        </a>
+    </div>
+
+    <div class="section">
+        <h2>📜 Program Overview</h2>
+        <ul class="rules-list">
+            <li>**Prerequisite:** Completion of the 18-Pose User Progression at least three times.</li>
+            <li>**Assessment:** Must achieve **60% or higher** on the final written theory exam.</li>
+            <li>**Certification:** Certificate is valid for **two years** and requires a small fee for renewal.</li>
+        </ul>
+        <h3>Refund Policy Summary</h3>
+        <p style="font-size: 0.9em; color: #666;">
+            A full refund is available within 7 days of enrollment, provided no more than 10% of the course content has been accessed. No refunds are issued after 7 days or after accessing the core theory modules.
+        </p>
+    </div>
+</div>
+{% endblock %}

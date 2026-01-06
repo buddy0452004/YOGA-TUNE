@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YOGATUNE - Login/Register</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      height: 100vh;
+      background: linear-gradient(to right, #f0fdfa, #e0ffff);
+    }
+
+    .container {
+      display: flex;
+      width: 100%;
+    }
+
+    .left-panel {
+      background-color: #fff;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: all 0.5s ease;
+      border-right: 2px solid #1ca6a6;
+    }
+
+    .left-panel img {
+      width: 130px;
+      animation: popIn 1s ease-out forwards;
+      margin-bottom: 15px;
+      border-radius: 50%;
+    }
+
+    .left-panel h1 {
+      color: #1ca6a6;
+      font-size: 26px;
+      text-align: center;
+    }
+
+    .right-panel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7fcfc;
+    }
+
+    .form-box {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid #cceeee;
+    }
+
+    .form-box h2 {
+      text-align: center;
+      color: #1ca6a6;
+    }
+
+    .form-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .form-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #1ca6a6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .form-box button:hover {
+      background-color: #188c8c;
+    }
+
+    .switch-link {
+      text-align: center;
+      margin-top: 15px;
+      color: #1ca6a6;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .error {
+      color: #d9534f;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .success {
+      color: #28a745;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .forgot-password a {
+      color: #1ca6a6;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel" id="leftPanel">
+      <img src="{{ url_for('static', filename='logo/eb37ca02-459f-49c2-ac4a-038cbec8d6c1.jpg') }}" alt="Logo">
+      <h1>Welcome to YOGATUNE</h1>
+    </div>
+
+    <div class="right-panel">
+      <div class="form-box" id="loginForm">
+        <h2>Login</h2>
+        {% with messages = get_flashed_messages(category_filter=['login_error', 'login_success']) %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="{{ 'error' if '❗' in message else 'success' }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form method="POST" action="/login">
+          <input type="email" name="login_email" placeholder="Email" required>
+          <input type="password" name="login_password" placeholder="Password" required minlength="8">
+          <button type="submit">Login</button>
+        </form>
+
+        <div class="forgot-password">
+          <a href="/forgot-password">Forgot Password?</a>
+        </div>
+
+        <div class="switch-link" onclick="toggleForm('register')">Don't have an account? Register</div>
+      </div>
+
+      <div class="form-box" id="registerForm" style="display:none">
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages(category_filter=['register_error']) %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="error">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form method="POST" action="/register">
+          <input type="text" name="register_username" placeholder="Username" required>
+          <input type="email" name="register_email" placeholder="Email" required>
+          <input type="password" name="register_password" placeholder="Password" required minlength="8">
+          <input type="password" name="register_confirm" placeholder="Confirm Password" required>
+          <button type="submit">Register</button>
+        </form>
+        <div class="switch-link" onclick="toggleForm('login')">Already have an account? Login</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForm(type) {
+      if (type === 'register') {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'block';
+      } else {
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
