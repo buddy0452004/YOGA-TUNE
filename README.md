@@ -27,3 +27,4 @@ The project focuses on **user authentication, activity tracking, and progress mo
 
 ## 📂 Project Structure
 
+(updating soon)
